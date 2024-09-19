@@ -1,5 +1,5 @@
 from .download import downloader
-from .get_downloaded import last_modified_file as downloaded_file
+from .get_downloaded import newest
 
 
-__all__ = ("downloader", "downloaded_file")
+__all__ = ("downloader", "newest")

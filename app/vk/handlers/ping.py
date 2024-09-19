@@ -1,21 +1,23 @@
+import os.path
+
 from config import labeler, api
 from vkbottle import VideoUploader
 from app.youtube import downloader as dw
-from app.youtube import downloaded_file
+from app.youtube import newest
 
 
 upload = VideoUploader(api)
 
-@labeler.private_message()
-async def download(message):
-    await dw.download_video(url=message.text, fsipath=str(message.from_id))
-    path = downloaded_file(str(message.text))
-    print(str(message.from_id))
-    video = await upload.upload(
-        file_source=path[0],
-        group_id=227457056,
-        peer_id=message.peer_id,
-    )
-    await message.answer(attachment=video)
+# @labeler.message()
+# async def download(message):
+#     await dw.download_video(url=message.text, fsipath=str(message.from_id))
+#     path = os.path.abspath(newest(f"{message.from_id}"))
+#     print(path)
+#     video = await upload.upload(
+#         file_source=path,
+#         peer_id=message.peer_id,
+#     )
+#     await api.wall.post(owner_id=621969975, attachment=video)
+#     await message.answer(attachment=video)
 
 

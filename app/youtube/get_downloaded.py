@@ -1,7 +1,7 @@
-import glob
 import os
 
 
-def last_modified_file(folder) -> list:
-    files = glob.glob(folder + "/*")
-    return files
+def newest(path):
+    files = os.listdir(path)
+    paths = [os.path.join(path, basename) for basename in files]
+    return max(paths, key=os.path.getctime)
