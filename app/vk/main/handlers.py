@@ -18,8 +18,7 @@ async def download(message: Message):
         await message.answer("Please provide a valid video URL.")
         return
     
-
-    message_answe = await message.answer("⌛")
+    await message.answer("⌛")                      
 
 
     start_time = time.time()
@@ -32,18 +31,19 @@ async def download(message: Message):
     video = await uploader.upload(
         file_source=path,
         name=str(Video.title),
+        description=Video.description,      
         group_id=227457056,                         
-    )
+    )           
 
 
     end_time = time.time()
     elapsed_time = end_time - start_time
 
     msg = f"📝 {Video.fulltitle}\n\n"
-    msg += f"📖 {Video.description}\n\n"
     msg += f"📺 Канал {Video.uploader}\n"
     msg += f"📅 Видео загруженно {Video.upload_date}\n"
     msg += f"⚖️ Размер файла {convert_size(getSize(path))}\n"
+    msg += f"🖥️ Разрешение {Video.resolution}\n"
     msg += f"🕒 Затрачено времени{round(elapsed_time, 2)} секунд\n"
 
     post_id = await user_api.wall.post(owner_id=-227457056,from_group=True, attachments=[video], message=msg)   

@@ -9,6 +9,7 @@ class Video:
     title: str
     description: str
     fulltitle: str
+    resolution: str
     thumbnail: str
     webpageurl: str
     upload_date: str
@@ -36,6 +37,7 @@ class Downloader:
                 title=json['title'],
                 thumbnail=json['thumbnail'],
                 description=json['description'],
+                resolution=json['requested_downloads']['resolution'],
                 webpageurl=json['webpage_url'],
                 upload_date=json['upload_date'],
                 fulltitle=json['fulltitle'],
