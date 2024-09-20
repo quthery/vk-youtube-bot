@@ -5,7 +5,7 @@ import asyncio
 class Downloader:
     def __init__(self):
         self.ydl_opts = {
-            'format': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
+            'format': 'bestvideo[height<=720]+best',
             'quiet': True,
             'no_warnings': True,
             'outtmpl': '%(id)s.%(ext)s',

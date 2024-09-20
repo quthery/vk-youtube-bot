@@ -34,16 +34,15 @@ async def download(message):
 
     video = await uploader.upload(
         file_source=path,
+        owner_id=message.from_id,                # The user ID of the user who uploaded the video
+        peer_id=message.peer_id,                  # The user ID of the user who sent the message                                    
         name="asd.mp4"
     )
 
 
     # Post the video to the wall and send it back to the user
-    await bot.api.wall.post(owner_id=-227457056, attachments=[video], message=path)
+    await user_api.wall.post(owner_id=-227457056, attachments=[video], message=path)
     await message.answer("Запосчено")
-    post = await service_api.wall.search(extended=False, owners_only=True, owner_id=-227457056, query=path)
-    print(post)
-
 
 # Run the bot
 bot.run_forever()
