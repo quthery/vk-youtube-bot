@@ -18,7 +18,7 @@ class Video:
 class Downloader:
     def __init__(self):
         self.ydl_opts = {
-            'format': 'best',
+            'format': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
             'quiet': True,
             'no_warnings': True,
             'outtmpl': 'videos/%(id)s.%(ext)s',
