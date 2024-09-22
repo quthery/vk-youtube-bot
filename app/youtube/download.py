@@ -10,9 +10,10 @@ class Video:
     description: str
     fulltitle: str
     thumbnail: str
+    resolution: str
     webpageurl: str
     upload_date: str
-    extrator: str   
+    extractor: str   
 
 class Downloader:
     def __init__(self):
@@ -28,20 +29,27 @@ class Downloader:
 
         return self.ydl_opts['outtmpl']
     
-    def download_sync(self, url : str, fsipath: str) -> Video:
+    async def download_async(self, url: str, fsipath: str) -> Video:
+        
+        json = await asyncio.to_thread(self._download_sync, url, fsipath)
+        
+        VideoInfo = Video(
+            uploader=json['uploader'],
+            title=json['title'],
+            thumbnail=json['thumbnail'],
+            description=json['description'],
+            resolution=json['height'],
+            webpageurl=json['webpage_url'],
+            upload_date=json['upload_date'],
+            fulltitle=json['fulltitle'],
+            extractor=json['extractor'],
+        )
+        return VideoInfo
+
+    def _download_sync(self, url: str, fsipath: str):
         with yt_dlp.YoutubeDL({'outtmpl': fsipath + "/%(id)s.%(ext)s", 'quiet': True, 'format': 'best'}) as ydl:
-            json = ydl.extract_info(url)
-            VideoInfo = Video(
-                uploader=json['uploader'],
-                title=json['title'],
-                thumbnail=json['thumbnail'],
-                description=json['description'],
-                webpageurl=json['webpage_url'],
-                upload_date=json['upload_date'],
-                fulltitle=json['fulltitle'],
-                extrator=json['extractor'],
-            ) 
-            return VideoInfo
+            return ydl.extract_info(url)
+
 
 
 downloader = Downloader()

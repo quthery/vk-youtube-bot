@@ -1,5 +1,8 @@
 .venv
+venv
 .env 
 videos/621969975/*
-__pychache__*
+.*__pychache__
 .idea
+*.pyc
+__pychache__
