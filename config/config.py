@@ -8,7 +8,6 @@ api = API(os.getenv("VK_TOKEN"))
 user_api = API(os.getenv("VK_USER_TOKEN"))
 main_group_api = API(os.getenv("MAIN_GROUP_TOKEN"))	
 
-
 labeler = BotLabeler()
 state_dispenser = BuiltinStateDispenser()
 
