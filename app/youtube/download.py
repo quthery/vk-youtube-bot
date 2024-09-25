@@ -30,9 +30,7 @@ class Downloader:
         return self.ydl_opts['outtmpl']
     
     async def download_async(self, url: str, fsipath: str) -> Video:
-        
         json = await asyncio.to_thread(self._download_sync, url, fsipath)
-        
         VideoInfo = Video(
             uploader=json['uploader'],
             title=json['title'],
@@ -47,9 +45,8 @@ class Downloader:
         return VideoInfo
 
     def _download_sync(self, url: str, fsipath: str):
-        with yt_dlp.YoutubeDL({'outtmpl': fsipath + "/%(id)s.%(ext)s", 'quiet': True, 'format': 'best'}) as ydl:
-            return ydl.extract_info(url)
-
+        with yt_dlp.YoutubeDL({'outtmpl': f"{fsipath}/%(id)s.%(ext)s", 'quiet': True, 'format': 'best'}) as ydl:
+            return ydl.extract_info(str(url))
 
 
 downloader = Downloader()
