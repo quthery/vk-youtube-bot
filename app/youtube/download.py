@@ -45,7 +45,7 @@ class Downloader:
         return VideoInfo
 
     def _download_sync(self, url: str, fsipath: str):
-        with yt_dlp.YoutubeDL({'outtmpl': f"{fsipath}/%(id)s.%(ext)s", 'quiet': True, 'format': 'best'}) as ydl:
+        with yt_dlp.YoutubeDL({'outtmpl': f"{fsipath}/%(id)s.%(ext)s", 'quiet': True, 'format': self.ydl_opts['format']}) as ydl:
             return ydl.extract_info(str(url))
 
 
