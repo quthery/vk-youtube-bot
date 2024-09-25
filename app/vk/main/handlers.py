@@ -15,18 +15,16 @@ uploader = VideoUploader(user_api, generate_attachment_strings=True)
 
 @download_labeler.private_message(regexp="^(https://(www\.)?youtube\.com)")                         
 async def download_youtube(message: Message):
-
-    start_time = time.time()      
+    start_time = time.time()     
     fsipath = f"videos/{message.from_id}/{random.randint(0, 999999)}"
+
     Video = await dw.download_async(url=message.text, fsipath=fsipath)
 
-    path = os.path.abspath(newest(fsipath))
-
+    paths = newest(fsipath)
 
     description_for_video = description(description=Video.description, video_url=Video.webpageurl, uploader=Video.uploader)
-
     video = await uploader.upload(
-        file_source=path,
+        file_source=paths[0],
         name=str(Video.title),                          
         description=description_for_video,      
         group_id=227457056,                         
@@ -38,29 +36,28 @@ async def download_youtube(message: Message):
     msg = f"📝 {Video.fulltitle}\n\n"
     msg += f"📺 Канал {Video.uploader}\n"
     msg += f"📅 Видео загруженно {Video.upload_date}\n"
-    msg += f"⚖️ Размер файла {convert_size(getSize(path))}\n"
+    msg += f"⚖️ Размер файла {convert_size(getSize(paths[0]))}\n"
     msg += f"🕒 Затрачено времени {round(elapsed_time, 2)} секунд\n"
 
 
     keyboard = kb(url_hosting=Video.webpageurl, url_video=f"https://vk.com/{video}")
     await message.answer(attachment=video, message=msg, keyboard=keyboard)
 
-    os.remove(path)         
+    os.remove(paths[0])         
 
 
-@download_labeler.private_message(regexp="^https://(www\.)?dzen\.ru")                         
-async def download_dzen(message: Message):
+@download_labeler.private_message(regexp="^https://(www\.)?dzen\.ru")   
+async def download_dzen(message):
+    start_time = time.time()     
+    fsipath = f"videos/{message.from_id}/{random.randint(0, 999999)}"
 
-    start_time = time.time()                
-    Video = await dw.download_async(url=message.text, fsipath=f"videos/{message.from_id}")
+    Video = await dw.download_async(url=message.text, fsipath=fsipath)
 
-    path = os.path.abspath(newest(f"videos/{message.from_id}/{random.randint(0, 999999)}"))
-
+    paths = newest(fsipath)
 
     description_for_video = description(description=Video.description, video_url=Video.webpageurl, uploader=Video.uploader)
-
     video = await uploader.upload(
-        file_source=path,
+        file_source=paths[0],
         name=str(Video.title),                          
         description=description_for_video,      
         group_id=227457056,                         
@@ -72,12 +69,11 @@ async def download_dzen(message: Message):
     msg = f"📝 {Video.fulltitle}\n\n"
     msg += f"📺 Канал {Video.uploader}\n"
     msg += f"📅 Видео загруженно {Video.upload_date}\n"
-    msg += f"⚖️ Размер файла {convert_size(getSize(path))}\n"
+    msg += f"⚖️ Размер файла {convert_size(getSize(paths[0]))}\n"
     msg += f"🕒 Затрачено времени {round(elapsed_time, 2)} секунд\n"
 
 
     keyboard = kb(url_hosting=Video.webpageurl, url_video=f"https://vk.com/{video}")
     await message.answer(attachment=video, message=msg, keyboard=keyboard)
 
-    os.remove(path)         
-
+    os.remove(paths[0])         
