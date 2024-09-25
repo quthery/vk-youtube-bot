@@ -20,7 +20,7 @@ async def download_youtube(message: Message):
     fsipath = f"videos/{message.from_id}/{random.randint(0, 999999)}"
     Video = await dw.download_async(url=message.text, fsipath=fsipath)
 
-    path = os.path.abspath(newest(f"videos/{message.from_id}/"))
+    path = os.path.abspath(newest(fsipath))
 
 
     description_for_video = description(description=Video.description, video_url=Video.webpageurl, uploader=Video.uploader)
