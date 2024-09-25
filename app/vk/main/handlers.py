@@ -37,6 +37,7 @@ async def download_youtube(message: Message):
     msg += f"📺 Канал {Video.uploader}\n"
     msg += f"📅 Видео загруженно {Video.upload_date}\n"
     msg += f"⚖️ Размер файла {convert_size(getSize(paths[0]))}\n"
+    msg += f"🖵  Качество видео {Video.resolution}\n"
     msg += f"🕒 Затрачено времени {round(elapsed_time, 2)} секунд\n"
 
 
