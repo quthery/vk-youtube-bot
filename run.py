@@ -1,9 +1,10 @@
-from app.vk.main.handlers import download_labeler
+from app.vk.main import download_labeler, start_labeler 
 from vkbottle import Bot 
-from config import api, state_dispenser, labeler, main_group_api
+from config import state_dispenser, labeler, main_group_api
 
 
 
+labeler.load(start_labeler)
 labeler.load(download_labeler)
 
 bot = Bot(

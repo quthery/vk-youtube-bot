@@ -15,12 +15,12 @@ def keyboard(url_hosting: str, url_video: str):
 
 
 # ...
-Keyboard_kb = (
-    Keyboard(one_time=False, inline=True)
-    .add(Text("Кнопка 1"), color=KeyboardButtonColor.POSITIVE)
+start_keyboard = (
+    Keyboard(one_time=True, inline=False)
+    .add(Text("Профиль🪪"), color=KeyboardButtonColor.POSITIVE)
     .row()
-    .add(Text("Кнопка 2"))
-    .add(Text("Кнопка 3", payload={"command": 3}))
+    .add(Text("Статистика📊"))
+    .add(Text("FAQ🤷"))
 ).get_json()
 
 

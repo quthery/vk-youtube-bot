@@ -13,6 +13,11 @@ import os
 download_labeler = BotLabeler()
 uploader = VideoUploader(user_api, generate_attachment_strings=True)
 
+@download_labeler.private_message(text="Начать")
+async def start_command(message: Message):
+    await message.answer("hello world")
+
+
 @download_labeler.private_message(regexp="^(https://(www\.)?youtube\.com)")                         
 async def download_youtube(message: Message):
     start_time = time.time()     
