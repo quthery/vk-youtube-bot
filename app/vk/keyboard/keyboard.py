@@ -13,14 +13,12 @@ def keyboard(url_hosting: str, url_video: str):
     return keyboard.get_json()
     
 
-
-# ...
 start_keyboard = (
     Keyboard(one_time=True, inline=False)
-    .add(Text("Профиль🪪"), color=KeyboardButtonColor.POSITIVE)
+    .add(Text("Профиль 🪪"), color=KeyboardButtonColor.POSITIVE)
     .row()
-    .add(Text("Статистика📊"))
-    .add(Text("FAQ🤷"))
+    .add(Text("Статистика 📊"))
+    .add(Text("FAQ 🤷"))
 ).get_json()
 
 
