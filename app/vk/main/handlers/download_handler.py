@@ -4,14 +4,19 @@ from app.youtube import downloader as dw
 from app.youtube import newest
 from app.vk.keyboard.keyboard import keyboard as kb
 from app.lib import getSize, convert_size, description
-from config import user_api 
+from config import settings 
 import random
 import time
 import os
 
 
 download_labeler = BotLabeler()
-uploader = VideoUploader(user_api, generate_attachment_strings=True)
+uploader = VideoUploader(settings.user_api, generate_attachment_strings=True)
+
+@download_labeler.private_message(text="Начать")
+async def start_command(message: Message):
+    await message.answer("hello world")
+
 
 @download_labeler.private_message(regexp="^(https://(www\.)?youtube\.com)")                         
 async def download_youtube(message: Message):
@@ -37,6 +42,7 @@ async def download_youtube(message: Message):
     msg += f"📺 Канал {Video.uploader}\n"
     msg += f"📅 Видео загруженно {Video.upload_date}\n"
     msg += f"⚖️ Размер файла {convert_size(getSize(paths[0]))}\n"
+    msg += f"🖵  Качество видео {Video.resolution}\n"
     msg += f"🕒 Затрачено времени {round(elapsed_time, 2)} секунд\n"
 
 
