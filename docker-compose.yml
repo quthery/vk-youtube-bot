@@ -7,9 +7,9 @@ services:
       - .env
     restart: always
 
-  postgres:
+  db:
     image: postgres:latest
-    container_name: postgres
+    container_name: postgres_container
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres 
