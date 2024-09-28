@@ -9,11 +9,9 @@ class Repository:
     @classmethod
     async def add_user(cls, id: int, full_name: str, photo_attachment: str, photo_url: str):
         async with new_session() as session:
-            user = UsersORM(vk_id=id , full_name=full_name, photo_attachment=photo_attachment, photo_url=photo_url)
+            user = UsersORM(vk_id=id , fullname=full_name, photo_attachment=photo_attachment, photo_url=photo_url)
             session.add(user)
-            await session.flush()
             await session.commit()
-            return user.id
 
     @classmethod
     async def get_user(cls, vk_id: int):
@@ -28,4 +26,4 @@ class Repository:
         async with new_session() as session:
             query = select(UsersORM)
             result = await session.execute(query)
-            return result.scalar_or_none()
+            return result.scalars().all()

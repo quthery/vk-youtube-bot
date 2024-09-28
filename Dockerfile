@@ -2,9 +2,10 @@ FROM python:3.12
 
 WORKDIR /bot
 
-COPY req.txt req.txt
+COPY requirements.txt requirements.txt
 
-RUN pip3 install -r req.txt
+RUN pip3 install --upgrade setuptools
+RUN pip3 install -r requirements.txt
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
