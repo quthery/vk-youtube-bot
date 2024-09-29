@@ -1,14 +1,6 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  bot:
-t   build: .
-    env_file:
-      - .env
-    depends_on:
-      db
-    restart: always
-
   db:
     image: postgres:latest
     container_name: postgres_container
@@ -20,15 +12,7 @@ t   build: .
     ports:
       - "5432:5432"
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 256M
+      - ./pgdata:/var/lib/postgresql/data/pgdata  # Use this if you want a bind mount
     command: >
       postgres -c max_connections=1000
                -c shared_buffers=256MB
@@ -42,9 +26,13 @@ t   build: .
       interval: 30s
       timeout: 10s
       retries: 5
-    restart: unless-stopped
+    restart: unless-stopped  # Choose one restart policy
     tty: true
     stdin_open: true
 
-volumes:
-  pgdata:
+  bot:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - db
