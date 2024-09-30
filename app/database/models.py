@@ -17,5 +17,20 @@ class UsersORM(Base):
     photo_attachment: Mapped[str]
     photo_url: Mapped[str]
     download_count: Mapped[int] = mapped_column(default=0)
+    day_download_count: Mapped[int] = mapped_column(default=20)
     resolution: Mapped[str] =mapped_column(default="1080p")
     created_at: Mapped[created_at]
+
+
+class all_video(Base):
+    __tablename__ = "video"
+
+    uploader: Mapped[str]
+    title: Mapped[str]
+    description: Mapped[str]
+    fulltitle: Mapped[str]
+    thumbnail: Mapped[str]
+    resolution: Mapped[str]
+    webpageurl: Mapped[str]
+    upload_date: Mapped[str]
+    extractor: Mapped[str]   

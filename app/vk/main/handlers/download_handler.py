@@ -6,6 +6,7 @@ from app.vk.keyboard.keyboard import keyboard as kb
 from app.lib import getSize, convert_size, description
 from config import settings 
 import random
+from app.database import repo
 import time
 import os
 
@@ -50,7 +51,7 @@ async def download_youtube(message: Message):
     await message.answer(attachment=video, message=msg, keyboard=keyboard)
 
     os.remove(paths[0])         
-
+    await repo.remove_user_count(message.from_id)
 
 @download_labeler.private_message(regexp="^https://(www\.)?dzen\.ru")   
 async def download_dzen(message):
@@ -82,4 +83,6 @@ async def download_dzen(message):
     keyboard = kb(url_hosting=Video.webpageurl, url_video=f"https://vk.com/{video}")
     await message.answer(attachment=video, message=msg, keyboard=keyboard)
 
-    os.remove(paths[0])         
+    os.remove(paths[0])
+
+    await repo.remove_user_count(message.from_id)

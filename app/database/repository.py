@@ -1,8 +1,6 @@
 from app.database import new_session
 from app.database import UsersORM
-from sqlalchemy import select
-
-
+from sqlalchemy import select, update
 
 
 class Repository:
@@ -27,3 +25,11 @@ class Repository:
             query = select(UsersORM)
             result = await session.execute(query)
             return result.scalars().all()
+        
+    @classmethod
+    async def remove_user_count(cls, vk_id: int):
+        async with new_session() as session:
+            query = update(UsersORM).where(UsersORM.vk_id == vk_id).values(count=UsersORM.download_count+1, day_download_count=UsersORM.day_download_count-1)
+            await session.execute(query)
+            await session.commit()
+            
