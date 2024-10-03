@@ -82,7 +82,7 @@ async def download_dzen(message):
 
     keyboard = kb(url_hosting=Video.webpageurl, url_video=f"https://vk.com/{video}")
     await message.answer(attachment=video, message=msg, keyboard=keyboard)
-
+    await message.set_
     os.remove(paths[0])
 
     await repo.remove_user_count(message.from_id)

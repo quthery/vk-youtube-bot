@@ -23,14 +23,15 @@ class UsersORM(Base):
 
 
 class all_video(Base):
-    __tablename__ = "video"
+    __tablename__ = "videos"
 
+    id: Mapped[intpk]
     uploader: Mapped[str]
     title: Mapped[str]
     description: Mapped[str]
     fulltitle: Mapped[str]
     thumbnail: Mapped[str]
     resolution: Mapped[str]
-    webpageurl: Mapped[str]
+    webpageurl: Mapped[str]       
     upload_date: Mapped[str]
     extractor: Mapped[str]   
